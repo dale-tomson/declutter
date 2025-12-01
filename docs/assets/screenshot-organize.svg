@@ -1,0 +1,15 @@
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="200" fill="#35495e"/>
+  <rect x="10" y="10" width="280" height="180" rx="8" fill="#3d546b"/>
+  <rect x="20" y="20" width="260" height="25" rx="4" fill="#2d3e50"/>
+  <text x="30" y="37" fill="#42b883" font-size="11">📂 /home/user/Downloads</text>
+  <rect x="20" y="55" width="260" height="50" rx="4" fill="#2d3e50"/>
+  <text x="30" y="75" fill="#aabbcc" font-size="10">Found 47 files to organize</text>
+  <text x="30" y="92" fill="#aabbcc" font-size="10">Ready to sort into Year/Month folders</text>
+  <rect x="20" y="115" width="125" height="30" rx="4" fill="#347474"/>
+  <text x="82" y="135" text-anchor="middle" fill="#ffffff" font-size="12">Select Folder</text>
+  <rect x="155" y="115" width="125" height="30" rx="4" fill="#42b883"/>
+  <text x="217" y="135" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Organize Files</text>
+  <rect x="20" y="155" width="260" height="8" rx="4" fill="#2d3e50"/>
+  <rect x="20" y="155" width="130" height="8" rx="4" fill="#42b883"/>
+</svg>
