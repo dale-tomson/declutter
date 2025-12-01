@@ -1,83 +1,109 @@
-# Declutter
+<p align="center">
+  <img src="docs/assets/logo.svg" alt="Declutter Logo" width="120" height="96">
+</p>
 
-A cross-platform standalone application built with [Fyne](https://fyne.io/) (Go) that organizes files into Year/Month folders based on their timestamps.
+<h1 align="center">Declutter</h1>
+
+<p align="center">
+  <strong>Organize your files into Year/Month folders based on their timestamps</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/dale-tomson/declutter/releases">
+    <img src="https://img.shields.io/github/v/release/dale-tomson/declutter?style=flat-square" alt="Release">
+  </a>
+  <a href="https://github.com/dale-tomson/declutter/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/dale-tomson/declutter?style=flat-square" alt="License">
+  </a>
+  <a href="https://dale-tomson.github.io/declutter">
+    <img src="https://img.shields.io/badge/website-live-42b883?style=flat-square" alt="Website">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://dale-tomson.github.io/declutter">Website</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#building-from-source">Build</a>
+</p>
+
+---
 
 ## Features
 
-- 📁 **Automatic folder creation**: Creates year folders (e.g., `2024`, `2025`) and month subfolders (e.g., `01-January`, `02-February`)
-- 🕐 **Timestamp-based organization**: Uses file modification dates to determine the correct folder
-- ⚠️ **No duplicate folders**: Ensures folders are only created once
-- 🔄 **Skip existing files**: Files that already exist at the destination are skipped
-- 📝 **Activity log**: Real-time logging of all operations
-- 🖥️ **Cross-platform**: Works on Windows, macOS, and Linux
+- 📁 **Auto Organization** — Creates year folders (e.g., `2024`) and month subfolders (e.g., `01-January`)
+- 🕐 **Timestamp-based** — Uses file modification dates to determine the correct folder
+- 🖥️ **Cross-platform** — Works on Windows, macOS, and Linux
+- ⚡ **Fast** — Built with Go for blazing fast file operations
+- 🎨 **Modern UI** — Clean interface built with Fyne
 
 ## How It Works
 
-1. Select a folder containing files you want to organize
-2. Click "Organize Files" to start the process
-3. The app will:
-   - Scan all files in the selected folder
-   - Create year folders based on file modification dates
-   - Create month subfolders inside year folders
-   - Move each file to its corresponding month folder
+1. **Select** a folder containing files you want to organize
+2. **Click** "Organize Files" to start
+3. **Done!** Files are moved to Year/Month folders
 
-### Folder Structure Example
+### Before & After
 
-Before:
 ```
-my-photos/
-├── vacation.jpg (modified: 2024-03-15)
-├── birthday.jpg (modified: 2024-03-22)
-├── christmas.jpg (modified: 2023-12-25)
-└── new-year.jpg (modified: 2024-01-01)
-```
-
-After:
-```
-my-photos/
-├── 2023/
-│   └── 12-December/
-│       └── christmas.jpg
-└── 2024/
-    ├── 01-January/
-    │   └── new-year.jpg
-    └── 03-March/
-        ├── vacation.jpg
-        └── birthday.jpg
+Downloads/                          Downloads/
+├── vacation.jpg (Mar 2024)         ├── 2023/
+├── birthday.jpg (Mar 2024)         │   └── 12-December/
+├── christmas.jpg (Dec 2023)   →    │       └── christmas.jpg
+└── new-year.jpg (Jan 2024)         └── 2024/
+                                        ├── 01-January/
+                                        │   └── new-year.jpg
+                                        └── 03-March/
+                                            ├── vacation.jpg
+                                            └── birthday.jpg
 ```
 
-## Building from Source
+## Installation
 
-### Prerequisites
+### Download
 
-- Go 1.21 or later
-- Fyne dependencies (platform-specific)
+Get the latest release for your platform from the [Releases page](https://github.com/dale-tomson/declutter/releases) or the [website](https://dale-tomson.github.io/declutter).
 
-#### Linux
+### Building from Source
+
+#### Prerequisites
+
+- Go 1.21+
+- Platform dependencies:
+
+**Linux:**
 ```bash
 sudo apt-get install libgl1-mesa-dev xorg-dev libxrandr-dev pkg-config
 ```
 
-#### macOS
-Xcode command line tools are required.
+**macOS:** Xcode command line tools
 
-#### Windows
-A C compiler (like MinGW) is required.
+**Windows:** MinGW or similar C compiler
 
-### Build
+#### Build
 
 ```bash
+git clone https://github.com/dale-tomson/declutter.git
+cd declutter
 go mod tidy
 go build -o declutter .
 ```
 
-### Run
+#### Run
 
 ```bash
 ./declutter
 ```
 
-### Test
+## Usage
+
+1. Launch Declutter
+2. Click **Select Folder** and choose a folder with files to organize
+3. Review the file count in the activity log
+4. Click **Organize Files** and confirm
+5. Watch the progress as files are moved to their Year/Month folders
+
+## Testing
 
 ```bash
 go test ./...
@@ -85,25 +111,19 @@ go test ./...
 
 ## Cross-Compilation
 
-Using Fyne's packaging tools:
-
 ```bash
-# Install fyne CLI
 go install fyne.io/fyne/v2/cmd/fyne@latest
 
-# Package for current platform
-fyne package -name "Declutter"
-
-# Cross-compile (requires additional setup)
-fyne package -os windows
-fyne package -os darwin
-fyne package -os linux
+fyne package -name "Declutter"              # Current platform
+fyne package -os windows -name "Declutter"  # Windows
+fyne package -os darwin -name "Declutter"   # macOS
+fyne package -os linux -name "Declutter"    # Linux
 ```
 
 ## License
 
-MIT License
+MIT License — see [LICENSE](LICENSE) for details.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Feel free to open issues or submit pull requests.
