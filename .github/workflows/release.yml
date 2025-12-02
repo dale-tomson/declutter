@@ -26,31 +26,26 @@ jobs:
             goarch: amd64
             name: linux-amd64
             ext: ''
-            cc: gcc
           - os: ubuntu-24.04-arm
             goos: linux
             goarch: arm64
             name: linux-arm64
             ext: ''
-            cc: gcc
           - os: macos-13
             goos: darwin
             goarch: amd64
             name: darwin-amd64
             ext: ''
-            cc: clang
           - os: macos-latest
             goos: darwin
             goarch: arm64
             name: darwin-arm64
             ext: ''
-            cc: clang
           - os: ubuntu-latest
             goos: windows
             goarch: amd64
             name: windows-amd64
             ext: '.exe'
-            cc: x86_64-w64-mingw32-gcc
 
     runs-on: ${{ matrix.os }}
     
@@ -64,7 +59,7 @@ jobs:
           go-version: '1.21'
 
       - name: Install Linux dependencies
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && matrix.goos == 'linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgl1-mesa-dev xorg-dev libxrandr-dev
@@ -81,23 +76,33 @@ jobs:
           echo "" >> internal/version/version.go
           echo "const Version = \"${{ inputs.version }}\"" >> internal/version/version.go
 
-      - name: Build
+      - name: Build (Linux/macOS)
+        if: matrix.goos != 'windows'
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 1
-          CC: ${{ matrix.cc }}
         run: |
-          go build -ldflags="-s -w" -o declutter${{ matrix.ext }} .
+          go build -ldflags="-s -w" -o declutter .
+
+      - name: Build (Windows)
+        if: matrix.goos == 'windows'
+        env:
+          GOOS: windows
+          GOARCH: amd64
+          CGO_ENABLED: 1
+          CC: x86_64-w64-mingw32-gcc
+        run: |
+          go build -ldflags="-s -w" -o declutter.exe .
 
       - name: Package (Unix)
-        if: matrix.ext == ''
+        if: matrix.goos != 'windows'
         run: |
           chmod +x declutter
           tar -czvf declutter-${{ inputs.version }}-${{ matrix.name }}.tar.gz declutter
 
       - name: Package (Windows)
-        if: matrix.ext == '.exe'
+        if: matrix.goos == 'windows'
         run: |
           zip declutter-${{ inputs.version }}-${{ matrix.name }}.zip declutter.exe
 
