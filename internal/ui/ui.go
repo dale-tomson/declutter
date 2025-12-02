@@ -13,6 +13,7 @@ import (
 
 	"github.com/dale-tomson/declutter/internal/icon"
 	"github.com/dale-tomson/declutter/internal/organizer"
+	"github.com/dale-tomson/declutter/internal/version"
 )
 
 type App struct {
@@ -100,6 +101,11 @@ func (a *App) buildLayout() fyne.CanvasObject {
 		container.NewMax(a.logOutput),
 	)
 
+	footerVersion := canvas.NewText("v"+version.Version, color.Gray{Y: 128})
+	footerVersion.TextSize = 11
+	footerVersion.Alignment = fyne.TextAlignCenter
+	footer := container.NewCenter(footerVersion)
+
 	content := container.NewBorder(
 		container.NewVBox(
 			headerContent,
@@ -109,7 +115,7 @@ func (a *App) buildLayout() fyne.CanvasObject {
 			a.progress,
 			a.statusLabel,
 		),
-		nil,
+		footer,
 		nil,
 		nil,
 		logSection,

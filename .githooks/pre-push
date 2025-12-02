@@ -1,0 +1,31 @@
+#!/bin/bash
+
+VERSION_FILE="internal/version/version.go"
+CURRENT_VERSION=$(grep 'const Version' "$VERSION_FILE" | sed 's/.*"\(.*\)"/\1/')
+
+echo "🔍 Pre-push hook: Checking version..."
+echo "   Current version: v${CURRENT_VERSION}"
+
+while read local_ref local_sha remote_ref remote_sha; do
+    if [[ "$local_ref" == refs/tags/v* ]]; then
+        TAG_VERSION="${local_ref#refs/tags/v}"
+        
+        if [ "$TAG_VERSION" != "$CURRENT_VERSION" ]; then
+            echo ""
+            echo "⚠️  Warning: Tag version (v${TAG_VERSION}) doesn't match code version (v${CURRENT_VERSION})"
+            echo "   Consider running: ./bump.sh ${TAG_VERSION}"
+            echo ""
+            read -p "Continue anyway? [y/N] " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo "Push aborted."
+                exit 1
+            fi
+        else
+            echo "   ✅ Tag matches code version"
+        fi
+    fi
+done
+
+echo "   ✅ Pre-push check passed"
+exit 0

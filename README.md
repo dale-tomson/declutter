@@ -15,6 +15,9 @@
   <a href="https://github.com/dale-tomson/declutter/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/dale-tomson/declutter?style=flat-square" alt="License">
   </a>
+  <a href="https://goreportcard.com/report/github.com/dale-tomson/declutter">
+    <img src="https://goreportcard.com/badge/github.com/dale-tomson/declutter?style=flat-square" alt="Go Report Card">
+  </a>
   <a href="https://dale-tomson.github.io/declutter">
     <img src="https://img.shields.io/badge/website-live-42b883?style=flat-square" alt="Website">
   </a>
@@ -22,8 +25,9 @@
 
 <p align="center">
   <a href="https://dale-tomson.github.io/declutter">Website</a> •
+  <a href="#features">Features</a> •
+  <a href="#screenshots">Screenshots</a> •
   <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
   <a href="#building-from-source">Build</a>
 </p>
 
@@ -34,8 +38,26 @@
 - 📁 **Auto Organization** — Creates year folders (e.g., `2024`) and month subfolders (e.g., `01-January`)
 - 🕐 **Timestamp-based** — Uses file modification dates to determine the correct folder
 - 🖥️ **Cross-platform** — Works on Windows, macOS, and Linux
-- ⚡ **Fast** — Built with Go for blazing fast file operations
-- 🎨 **Modern UI** — Clean interface built with Fyne
+- ⚡ **Fast & Efficient** — Built with Go for blazing fast file operations
+- 🎨 **Modern UI** — Clean, intuitive interface built with Fyne
+- 🔒 **Safe** — Skips files that already exist at destination, no overwrites
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/assets/step-1-launch.png" alt="Launch App" width="400">
+  <br><em>Launch the application</em>
+</p>
+
+<p align="center">
+  <img src="docs/assets/step-3-folder-selected.png" alt="Folder Selected" width="400">
+  <br><em>Select a folder to organize</em>
+</p>
+
+<p align="center">
+  <img src="docs/assets/step-6-done.png" alt="Organization Complete" width="400">
+  <br><em>Files organized into Year/Month folders</em>
+</p>
 
 ## How It Works
 
@@ -63,6 +85,12 @@ Downloads/                          Downloads/
 ### Download
 
 Get the latest release for your platform from the [Releases page](https://github.com/dale-tomson/declutter/releases) or the [website](https://dale-tomson.github.io/declutter).
+
+| Platform | Download |
+|----------|----------|
+| Windows  | [declutter-windows.exe](https://github.com/dale-tomson/declutter/releases/latest) |
+| macOS    | [declutter-darwin](https://github.com/dale-tomson/declutter/releases/latest) |
+| Linux    | [declutter-linux](https://github.com/dale-tomson/declutter/releases/latest) |
 
 ### Building from Source
 
@@ -109,6 +137,21 @@ go build -o declutter .
 go test ./...
 ```
 
+## Project Structure
+
+```
+declutter/
+├── main.go                 # Application entry point
+├── internal/
+│   ├── icon/              # Embedded app icon
+│   ├── organizer/         # File organization logic
+│   ├── theme/             # Custom Fyne theme
+│   ├── ui/                # User interface
+│   └── version/           # Version information
+├── docs/                  # GitHub Pages website
+└── scripts/               # Build and release scripts
+```
+
 ## Cross-Compilation
 
 ```bash
@@ -122,8 +165,24 @@ fyne package -os linux -name "Declutter"    # Linux
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+[MIT License](LICENSE) — feel free to use this project for personal or commercial purposes.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [changelogs](changelogs/) folder.
+
+**Latest: v1.1.0** - Mobile navigation, CI/CD workflows, code cleanup
 
 ## Contributing
 
-Contributions welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! Feel free to:
+
+- 🐛 Report bugs by opening an issue
+- 💡 Suggest features or improvements
+- 🔧 Submit pull requests
+
+---
+
+<p align="center">
+  Made with ❤️ using <a href="https://go.dev">Go</a> and <a href="https://fyne.io">Fyne</a>
+</p>

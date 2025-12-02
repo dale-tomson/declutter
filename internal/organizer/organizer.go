@@ -15,12 +15,6 @@ type FileInfo struct {
 	Name    string
 }
 
-type Result struct {
-	MovedCount   int
-	SkippedCount int
-	Errors       []error
-}
-
 type Organizer struct {
 	sourceDir   string
 	logCallback func(string)
@@ -132,10 +126,6 @@ func (o *Organizer) ensureDir(path string) error {
 	return nil
 }
 
-func (o *Organizer) EnsureDir(path string) error {
-	return o.ensureDir(path)
-}
-
 func (o *Organizer) moveFile(src, dst string) error {
 	if err := os.Rename(src, dst); err == nil {
 		return nil
@@ -146,10 +136,6 @@ func (o *Organizer) moveFile(src, dst string) error {
 	}
 
 	return os.Remove(src)
-}
-
-func (o *Organizer) MoveFile(src, dst string) error {
-	return o.moveFile(src, dst)
 }
 
 func (o *Organizer) copyFile(src, dst string) error {
@@ -177,17 +163,9 @@ func (o *Organizer) copyFile(src, dst string) error {
 	return destFile.Sync()
 }
 
-func (o *Organizer) CopyFile(src, dst string) error {
-	return o.copyFile(src, dst)
-}
-
 func GetYearMonthPath(baseDir string, t time.Time) string {
 	year := t.Year()
 	month := t.Month()
 	yearFolder := filepath.Join(baseDir, fmt.Sprintf("%d", year))
 	return filepath.Join(yearFolder, fmt.Sprintf("%02d-%s", int(month), month.String()))
-}
-
-func GetYearPath(baseDir string, t time.Time) string {
-	return filepath.Join(baseDir, fmt.Sprintf("%d", t.Year()))
 }

@@ -1,5 +1,9 @@
 # Binary
 declutter
+declutter.exe
+
+# Build output
+dist/
 
 # IDE
 .idea/

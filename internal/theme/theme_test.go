@@ -92,7 +92,7 @@ func TestColorSecondary(t *testing.T) {
 		name      string
 		colorName fyne.ThemeColorName
 	}{
-		{"Disabled", theme.ColorNameDisabled},
+		{"Pressed", theme.ColorNamePressed},
 		{"ScrollBar", theme.ColorNameScrollBar},
 		{"InputBorder", theme.ColorNameInputBorder},
 		{"Selection", theme.ColorNameSelection},

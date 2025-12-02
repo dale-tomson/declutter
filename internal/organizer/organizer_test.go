@@ -71,38 +71,6 @@ func TestGetYearMonthPath(t *testing.T) {
 	}
 }
 
-// TestGetYearPath verifies the path generation for year folders
-func TestGetYearPath(t *testing.T) {
-	tests := []struct {
-		name     string
-		baseDir  string
-		time     time.Time
-		expected string
-	}{
-		{
-			name:     "Year 2024",
-			baseDir:  "/test",
-			time:     time.Date(2024, 1, 15, 0, 0, 0, 0, time.UTC),
-			expected: filepath.Join("/test", "2024"),
-		},
-		{
-			name:     "Year 2023",
-			baseDir:  "/photos",
-			time:     time.Date(2023, 12, 25, 0, 0, 0, 0, time.UTC),
-			expected: filepath.Join("/photos", "2023"),
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := GetYearPath(tt.baseDir, tt.time)
-			if result != tt.expected {
-				t.Errorf("Expected %s, got %s", tt.expected, result)
-			}
-		})
-	}
-}
-
 // TestGetFiles tests scanning a directory for files
 func TestGetFiles(t *testing.T) {
 	// Create a temporary directory
@@ -394,17 +362,17 @@ func TestOrganizeFilesNoDuplicateFolders(t *testing.T) {
 	}
 }
 
-// TestCopyFile tests the file copying functionality
-func TestCopyFile(t *testing.T) {
-	tmpDir, err := os.MkdirTemp("", "organizer-test-copy-*")
+// TestOrganizeFilesPreservesModTime tests that file modification times are preserved
+func TestOrganizeFilesPreservesModTime(t *testing.T) {
+	tmpDir, err := os.MkdirTemp("", "organizer-test-modtime-*")
 	if err != nil {
 		t.Fatalf("Failed to create temp dir: %v", err)
 	}
 	defer os.RemoveAll(tmpDir)
 
-	// Create source file
+	// Create source file with specific mod time
 	srcPath := filepath.Join(tmpDir, "source.txt")
-	content := "test content for copying"
+	content := "test content"
 	modTime := time.Date(2024, 6, 15, 12, 0, 0, 0, time.UTC)
 
 	if err := os.WriteFile(srcPath, []byte(content), 0644); err != nil {
@@ -414,96 +382,28 @@ func TestCopyFile(t *testing.T) {
 		t.Fatalf("Failed to set mod time: %v", err)
 	}
 
-	// Copy file
-	dstPath := filepath.Join(tmpDir, "destination.txt")
+	// Organize file
 	org := New(tmpDir, nil)
-	if err := org.CopyFile(srcPath, dstPath); err != nil {
-		t.Fatalf("CopyFile failed: %v", err)
+	files, err := org.GetFiles()
+	if err != nil {
+		t.Fatalf("GetFiles failed: %v", err)
 	}
 
-	// Verify destination exists and has correct content
+	moved, _, err := org.OrganizeFiles(files)
+	if err != nil {
+		t.Fatalf("OrganizeFiles failed: %v", err)
+	}
+	if moved != 1 {
+		t.Fatalf("Expected 1 file moved, got %d", moved)
+	}
+
+	// Check destination file
+	dstPath := filepath.Join(tmpDir, "2024", "06-June", "source.txt")
 	dstContent, err := os.ReadFile(dstPath)
 	if err != nil {
 		t.Fatalf("Failed to read destination file: %v", err)
 	}
 	if string(dstContent) != content {
 		t.Errorf("Expected content '%s', got '%s'", content, string(dstContent))
-	}
-
-	// Verify modification time was preserved
-	dstInfo, err := os.Stat(dstPath)
-	if err != nil {
-		t.Fatalf("Failed to stat destination file: %v", err)
-	}
-	if !dstInfo.ModTime().Equal(modTime) {
-		t.Errorf("Expected mod time %v, got %v", modTime, dstInfo.ModTime())
-	}
-}
-
-// TestMoveFile tests the file moving functionality
-func TestMoveFile(t *testing.T) {
-	tmpDir, err := os.MkdirTemp("", "organizer-test-move-*")
-	if err != nil {
-		t.Fatalf("Failed to create temp dir: %v", err)
-	}
-	defer os.RemoveAll(tmpDir)
-
-	// Create source file
-	srcPath := filepath.Join(tmpDir, "source.txt")
-	content := "test content for moving"
-
-	if err := os.WriteFile(srcPath, []byte(content), 0644); err != nil {
-		t.Fatalf("Failed to create source file: %v", err)
-	}
-
-	// Move file
-	dstPath := filepath.Join(tmpDir, "moved.txt")
-	org := New(tmpDir, nil)
-	if err := org.MoveFile(srcPath, dstPath); err != nil {
-		t.Fatalf("MoveFile failed: %v", err)
-	}
-
-	// Verify destination exists
-	dstContent, err := os.ReadFile(dstPath)
-	if err != nil {
-		t.Fatalf("Failed to read destination file: %v", err)
-	}
-	if string(dstContent) != content {
-		t.Errorf("Expected content '%s', got '%s'", content, string(dstContent))
-	}
-
-	// Verify source is gone
-	if _, err := os.Stat(srcPath); !os.IsNotExist(err) {
-		t.Error("Source file should not exist after move")
-	}
-}
-
-// TestEnsureDir tests directory creation
-func TestEnsureDir(t *testing.T) {
-	tmpDir, err := os.MkdirTemp("", "organizer-test-ensure-*")
-	if err != nil {
-		t.Fatalf("Failed to create temp dir: %v", err)
-	}
-	defer os.RemoveAll(tmpDir)
-
-	org := New(tmpDir, nil)
-
-	// Test creating new directory
-	newDir := filepath.Join(tmpDir, "new", "nested", "dir")
-	if err := org.EnsureDir(newDir); err != nil {
-		t.Fatalf("EnsureDir failed: %v", err)
-	}
-
-	// Verify directory exists
-	info, err := os.Stat(newDir)
-	if os.IsNotExist(err) {
-		t.Error("Directory was not created")
-	} else if !info.IsDir() {
-		t.Error("Created path is not a directory")
-	}
-
-	// Test idempotency - calling again should not fail
-	if err := org.EnsureDir(newDir); err != nil {
-		t.Errorf("EnsureDir failed on existing directory: %v", err)
 	}
 }

@@ -20,11 +20,5 @@ func main() {
 
 	appUI := ui.New(w)
 	w.SetContent(appUI.GetContent())
-
-	w.SetCloseIntercept(func() {
-		w.Close()
-		a.Quit()
-	})
-
 	w.ShowAndRun()
 }
