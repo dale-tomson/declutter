@@ -55,51 +55,59 @@ async function loadReleases() {
             return;
         }
 
-        container.innerHTML = releases.map((release, index) => {
-            const assets = release.assets || [];
+        // Show only the latest release
+        const latestRelease = releases[0];
+        const assets = latestRelease.assets || [];
 
-            // Sort assets: user's OS first, then others
-            const sortedAssets = [...assets].sort((a, b) => {
-                const aOS = getAssetOS(a.name);
-                const bOS = getAssetOS(b.name);
-                if (aOS === userOS && bOS !== userOS) return -1;
-                if (bOS === userOS && aOS !== userOS) return 1;
-                return 0;
-            });
+        // Sort assets: user's OS first, then others
+        const sortedAssets = [...assets].sort((a, b) => {
+            const aOS = getAssetOS(a.name);
+            const bOS = getAssetOS(b.name);
+            if (aOS === userOS && bOS !== userOS) return -1;
+            if (bOS === userOS && aOS !== userOS) return 1;
+            return 0;
+        });
 
-            const assetHTML = sortedAssets.length ? sortedAssets.map(asset => {
-                const os = getAssetOS(asset.name);
-                const isUserOS = os === userOS;
-                return `
-                    <a href="${asset.browser_download_url}" class="download-card p-md row center-between" style="${isUserOS ? 'border: 2px solid var(--primary);' : ''}">
-                        <div class="row center-v">
-                            ${os ? osIcons[os] : ''}
-                            <div>
-                                <div class="download-name">${asset.name}</div>
-                                <div class="download-size">${formatBytes(asset.size)}</div>
-                            </div>
-                        </div>
-                        ${isUserOS ? '<span class="release-tag">Recommended</span>' : ''}
-                    </a>
-                `;
-            }).join('') : '<p class="text-muted">No downloadable assets for this release</p>';
-
+        const assetHTML = sortedAssets.length ? sortedAssets.map(asset => {
+            const os = getAssetOS(asset.name);
+            const isUserOS = os === userOS;
             return `
-                <div class="card p-lg">
-                    <div class="row center-between mb-md">
-                        <div class="row center-v gap-md">
-                            <h3>${release.name || release.tag_name}</h3>
-                            ${index === 0 ? '<span class="release-tag">Latest</span>' : ''}
+                <a href="${asset.browser_download_url}" class="download-card p-md row center-between" style="${isUserOS ? 'border: 2px solid var(--primary);' : ''}">
+                    <div class="row center-v">
+                        ${os ? osIcons[os] : ''}
+                        <div>
+                            <div class="download-name">${asset.name}</div>
+                            <div class="download-size">${formatBytes(asset.size)}</div>
                         </div>
-                        <span class="text-muted">${formatDate(release.published_at)}</span>
                     </div>
-                    ${release.body ? `<p class="text-muted mb-lg" style="white-space: pre-line;">${release.body}</p>` : ''}
-                    <div class="column gap-sm">
-                        ${assetHTML}
-                    </div>
-                </div>
+                    ${isUserOS ? '<span class="release-tag">Recommended</span>' : ''}
+                </a>
             `;
-        }).join('');
+        }).join('') : '<p class="text-muted">No downloadable assets for this release</p>';
+
+        container.innerHTML = `
+            <div class="card p-lg">
+                <div class="row center-between mb-md">
+                    <div class="row center-v gap-md">
+                        <h3>${latestRelease.name || latestRelease.tag_name}</h3>
+                        <span class="release-tag">Latest</span>
+                    </div>
+                    <span class="text-muted">${formatDate(latestRelease.published_at)}</span>
+                </div>
+                ${latestRelease.body ? `<p class="text-muted mb-lg" style="white-space: pre-line;">${latestRelease.body}</p>` : ''}
+                <div class="column gap-sm">
+                    ${assetHTML}
+                </div>
+            </div>
+            
+            ${releases.length > 1 ? `
+                <div class="text-center mt-lg">
+                    <a href="https://github.com/dale-tomson/declutter/releases" class="btn btn-secondary" target="_blank">
+                        View All Releases (${releases.length})
+                    </a>
+                </div>
+            ` : ''}
+        `;
 
     } catch (error) {
         container.innerHTML = `
