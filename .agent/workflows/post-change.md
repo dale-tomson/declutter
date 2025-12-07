@@ -29,6 +29,7 @@ Follow this checklist key changes are made to the codebase. This ensures the pro
 - [ ] **README Updates**:
     -   Update the "Latest Changes" section in `README.md` with a brief summary of this update.
     -   If new flags/features were added, ensure the Usage section is updated.
+- [ ] **Verify Links**: Check `README.md` and `docs/` for broken relative links (e.g., ensure `changelogs/` points to `docs/changelogs/`).
 
 ## 4. Final Validation
 

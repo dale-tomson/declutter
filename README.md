@@ -153,7 +153,7 @@ declutter/
 │   ├── ui/                # User interface
 │   └── version/           # Version information
 ├── docs/                  # GitHub Pages website
-└── scripts/               # Build and release scripts
+└── scripts/               # Helper scripts (version bumping)
 ```
 
 ## Cross-Compilation
@@ -173,7 +173,7 @@ fyne package -os linux -name "Declutter"    # Linux
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [changelogs](changelogs/) folder.
+See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [docs/changelogs](docs/changelogs/) folder.
 
 **Latest: v1.1.2+** - Project restructuring to standard Go layout, build optimization (UPX), and contribution guidelines.
 
