@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Contribution guidelines (`CONTRIBUTING.md`)
+- Agent workflow checklist (`.agent/workflows/post-change.md`)
+
 ### Changed
 - Refactored project structure: moved `main.go` to `cmd/declutter/main.go`
 - Replaced shell scripts with `Makefile` (`make build`, `make run`, `make test`)

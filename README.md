@@ -175,7 +175,7 @@ fyne package -os linux -name "Declutter"    # Linux
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [changelogs](changelogs/) folder.
 
-**Latest: v1.1.2** - Bug fixes for folder selection and CI/CD improvements
+**Latest: v1.1.2+** - Project restructuring to standard Go layout, build optimization (UPX), and contribution guidelines.
 
 ## Contributing
 
