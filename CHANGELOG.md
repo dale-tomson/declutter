@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Refactored project structure: moved `main.go` to `cmd/declutter/main.go`
+- Replaced shell scripts with `Makefile` (`make build`, `make run`, `make test`)
+- Updated Go version to 1.25 in workflows
+- Added UPX compression for Linux and Windows builds in release workflow
+
 ## [1.1.2] - 2025-12-07
 
 ### Fixed
