@@ -108,7 +108,7 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 1
         run: |
-          go build -ldflags="-s -w" -o declutter .
+          go build -ldflags="-s -w" -o declutter ./cmd/declutter
           if [ "${{ matrix.goos }}" == "linux" ]; then
             upx --best --lzma declutter
           fi
@@ -121,7 +121,7 @@ jobs:
           CGO_ENABLED: 1
           CC: x86_64-w64-mingw32-gcc
         run: |
-          go build -ldflags="-s -w -H windowsgui" -o declutter.exe .
+          go build -ldflags="-s -w -H windowsgui" -o declutter.exe ./cmd/declutter
           upx --best --lzma declutter.exe
 
 

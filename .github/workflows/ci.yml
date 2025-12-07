@@ -31,7 +31,7 @@ jobs:
         run: go test ./... -v
 
       - name: Build
-        run: go build -o declutter .
+        run: go build -o declutter ./cmd/declutter
 
   lint:
     runs-on: ubuntu-latest
