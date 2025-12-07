@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated `.agent/workflows/post-change.md` to enforce Pull Request submission.
+
+- Updated release workflow to use formatted changelog from `docs/changelogs/` instead of auto-generated notes.
 - Refactored project structure: moved `main.go` to `cmd/declutter/main.go`
 - Replaced shell scripts with `Makefile` (`make build`, `make run`, `make test`)
 - Updated Go version to 1.25 in workflows
