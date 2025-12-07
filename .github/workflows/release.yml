@@ -165,7 +165,8 @@ jobs:
           tag_name: v${{ inputs.version }}
           name: Declutter v${{ inputs.version }}
           draft: ${{ inputs.draft }}
-          generate_release_notes: true
+          generate_release_notes: false
+          body_path: docs/changelogs/v${{ inputs.version }}.md
           files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -38,5 +38,6 @@ Follow this checklist key changes are made to the codebase. This ensures the pro
 
 ## 5. Submission
 
+- [ ] **Sync**: Pull latest `main` (`git pull origin main`) and rebase if necessary (`git rebase main`). Resolve any conflicts.
 - [ ] **Push**: Push the branch to origin.
 - [ ] **PR**: Open a Pull Request against `main`. **DO NOT MERGE MANUALLY.**
