@@ -90,8 +90,16 @@ jobs:
           # Generate .syso resource file
           cd internal/winres
           go-winres make --in winres.json --out rsrc_windows_amd64.syso --arch amd64
-          mv rsrc_windows_amd64.syso ../
+          
+          # Move the generated file if it exists
+          if [ -f rsrc_windows_amd64.syso ]; then
+            mv rsrc_windows_amd64.syso ../
+          elif [ -f *.syso ]; then
+            mv *.syso ../rsrc_windows_amd64.syso
+          fi
+          
           cd ../..
+          ls -la internal/*.syso || echo "No .syso file found"
 
       - name: Build (Linux/macOS)
         if: matrix.goos != 'windows'
