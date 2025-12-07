@@ -234,7 +234,10 @@ func (a *App) performOrganization() {
 		fyne.Do(func() {
 			a.progress.Hide()
 			a.selectFolderBtn.Enable()
-			a.organizeBtn.Enable()
+			// Reset folder selection to encourage selecting a new folder
+			a.selectedFolder = ""
+			a.selectedFolderLabel.SetText("No folder selected - Select a folder to organize more files")
+			a.organizeBtn.Disable()
 			a.statusLabel.SetText(fmt.Sprintf("Done! %d files moved, %d skipped", moved, skipped))
 		})
 	}()

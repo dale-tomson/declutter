@@ -18,20 +18,20 @@
         "#1": {
             "0000": {
                 "fixed": {
-                    "file_version": "1.1.1.0",
-                    "product_version": "1.1.1.0"
+                    "file_version": "1.1.2.0",
+                    "product_version": "1.1.2.0"
                 },
                 "info": {
                     "0409": {
                         "Comments": "File organization utility",
                         "CompanyName": "Dale Tomson",
                         "FileDescription": "Declutter - Organize files by date",
-                        "FileVersion": "1.1.1",
+                        "FileVersion": "1.1.2",
                         "InternalName": "declutter",
                         "LegalCopyright": "Copyright (c) 2024 Dale Tomson. MIT License.",
                         "OriginalFilename": "declutter.exe",
                         "ProductName": "Declutter",
-                        "ProductVersion": "1.1.1"
+                        "ProductVersion": "1.1.2"
                     }
                 }
             }

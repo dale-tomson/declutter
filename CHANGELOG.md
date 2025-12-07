@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2025-12-07
+
+### Fixed
+- Folder selection state after organizing files - users can now select a new folder immediately after completion
+- CI/CD workflow file handling for Windows resource generation
+
 ## [1.1.1] - 2025-12-07
 
 ### Added
@@ -70,7 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test suite (28+ tests)
 - Thread-safe UI updates with fyne.Do()
 
-[Unreleased]: https://github.com/dale-tomson/declutter/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/dale-tomson/declutter/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/dale-tomson/declutter/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/dale-tomson/declutter/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/dale-tomson/declutter/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/dale-tomson/declutter/releases/tag/v1.0.0
