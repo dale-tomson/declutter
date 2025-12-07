@@ -92,6 +92,10 @@ Get the latest release for your platform from the [Releases page](https://github
 | macOS    | [declutter-darwin](https://github.com/dale-tomson/declutter/releases/latest) |
 | Linux    | [declutter-linux](https://github.com/dale-tomson/declutter/releases/latest) |
 
+> [!NOTE]
+> **Windows Users**: Windows Defender may show a false positive warning. This is a common issue with Go applications and is completely safe. See our [Windows Defender troubleshooting guide](docs/WINDOWS_DEFENDER.md) for solutions.
+
+
 ### Building from Source
 
 #### Prerequisites
@@ -171,7 +175,7 @@ fyne package -os linux -name "Declutter"    # Linux
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [changelogs](changelogs/) folder.
 
-**Latest: v1.1.0** - Mobile navigation, CI/CD workflows, code cleanup
+**Latest: v1.1.1** - Windows Defender mitigation, embedded metadata and icon
 
 ## Contributing
 

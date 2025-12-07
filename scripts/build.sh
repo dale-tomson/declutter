@@ -83,11 +83,43 @@ build_binary() {
                 fi
                 export CC=x86_64-w64-mingw32-gcc
             fi
+            
+            # Generate Windows resources
+            echo -e "   ${YELLOW}📝 Generating Windows resources...${NC}"
+            if ! command -v go-winres &> /dev/null; then
+                echo -e "   ${YELLOW}Installing go-winres...${NC}"
+                go install github.com/tc-hib/go-winres@latest
+            fi
+            
+            # Update version in winres.json
+            WINRES_FILE="$PROJECT_ROOT/internal/winres/winres.json"
+            if [ -f "$WINRES_FILE" ]; then
+                # Create temporary file with updated version
+                sed "s/\"file_version\": \"[^\"]*\"/\"file_version\": \"${VERSION}.0\"/" "$WINRES_FILE" | \
+                sed "s/\"product_version\": \"[^\"]*\"/\"product_version\": \"${VERSION}.0\"/" | \
+                sed "s/\"FileVersion\": \"[^\"]*\"/\"FileVersion\": \"${VERSION}\"/" | \
+                sed "s/\"ProductVersion\": \"[^\"]*\"/\"ProductVersion\": \"${VERSION}\"/" > "${WINRES_FILE}.tmp"
+                mv "${WINRES_FILE}.tmp" "$WINRES_FILE"
+                
+                # Generate .syso file
+                cd "$PROJECT_ROOT/internal/winres"
+                go-winres make --in winres.json --out rsrc_windows_amd64.syso --arch amd64
+                mv rsrc_windows_amd64.syso ../
+                cd "$PROJECT_ROOT"
+                echo -e "   ${GREEN}✅ Windows resources generated${NC}"
+            fi
             ;;
     esac
     
     cd "$PROJECT_ROOT"
-    go build -ldflags="-s -w" -o "${DIST_DIR}/${output_name}" .
+    
+    # Build with appropriate flags
+    if [ "$os" = "windows" ]; then
+        # Windows GUI mode (no console window) with embedded resources
+        go build -ldflags="-s -w -H windowsgui" -o "${DIST_DIR}/${output_name}" .
+    else
+        go build -ldflags="-s -w" -o "${DIST_DIR}/${output_name}" .
+    fi
     
     if [ -f "${DIST_DIR}/${output_name}" ]; then
         echo -e "   ${GREEN}✅ Built: ${output_name}${NC}"
@@ -97,6 +129,7 @@ build_binary() {
         return 1
     fi
 }
+
 
 create_archive() {
     local file="$1"

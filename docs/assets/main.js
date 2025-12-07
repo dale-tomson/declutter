@@ -39,11 +39,11 @@ function formatDate(dateStr) {
 async function loadReleases() {
     const container = document.getElementById('releases-container');
     const userOS = detectOS();
-    
+
     try {
         const response = await fetch('https://api.github.com/repos/dale-tomson/declutter/releases');
         const releases = await response.json();
-        
+
         if (!releases.length || releases.message) {
             container.innerHTML = `
                 <div class="card p-xl text-center">
@@ -57,7 +57,7 @@ async function loadReleases() {
 
         container.innerHTML = releases.map((release, index) => {
             const assets = release.assets || [];
-            
+
             // Sort assets: user's OS first, then others
             const sortedAssets = [...assets].sort((a, b) => {
                 const aOS = getAssetOS(a.name);
@@ -75,8 +75,8 @@ async function loadReleases() {
                         <div class="row center-v">
                             ${os ? osIcons[os] : ''}
                             <div>
-                                <div style="font-weight: 500;">${asset.name}</div>
-                                <div class="text-muted" style="font-size: 0.875rem;">${formatBytes(asset.size)}</div>
+                                <div class="download-name">${asset.name}</div>
+                                <div class="download-size">${formatBytes(asset.size)}</div>
                             </div>
                         </div>
                         ${isUserOS ? '<span class="release-tag">Recommended</span>' : ''}
@@ -100,7 +100,7 @@ async function loadReleases() {
                 </div>
             `;
         }).join('');
-        
+
     } catch (error) {
         container.innerHTML = `
             <div class="card p-xl text-center">

@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-12-07
+
+### Added
+- Comprehensive Windows Defender troubleshooting guide (`docs/WINDOWS_DEFENDER.md`)
+- Windows resource metadata embedded in executables (version info, company, description)
+- Application icon embedded in Windows executable (100x80 PNG)
+- Windows application manifest (execution level, DPI awareness, OS compatibility)
+- Automated Windows resource generation in build process
+
+### Changed
+- Windows executable now runs in GUI-only mode (no console window)
+- Updated README with Windows Defender warning notice
+- Build scripts now automatically generate Windows resources using `go-winres`
+
+### Fixed
+- Windows Defender false positive warnings addressed with proper metadata and user documentation
+
 ## [1.1.0] - 2025-12-02
 
 ### Added
@@ -53,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test suite (28+ tests)
 - Thread-safe UI updates with fyne.Do()
 
-[Unreleased]: https://github.com/dale-tomson/declutter/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/dale-tomson/declutter/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/dale-tomson/declutter/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/dale-tomson/declutter/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/dale-tomson/declutter/releases/tag/v1.0.0

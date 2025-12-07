@@ -23,3 +23,7 @@ Thumbs.db
 *.dylib
 *.test
 *.out
+
+# Windows resources (generated during build)
+*.syso
+internal/winres/winres.json.tmp

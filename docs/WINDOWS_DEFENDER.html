@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Defender False Positive - Declutter</title>
+    <link rel="stylesheet" href="https://unpkg.com/axis-twelve@1.0.1/dist/axis-twelve.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+</head>
+
+<body>
+    <nav class="nav py-md px-lg">
+        <div class="row center-between" style="max-width: 1200px; margin: 0 auto;">
+            <div class="row center-v gap-sm">
+                <img src="assets/logo.svg" alt="Declutter" style="width: 40px; height: 32px;">
+                <span style="font-weight: 600; font-size: 1.25rem;">Declutter</span>
+            </div>
+            <div class="nav-links row gap-lg">
+                <a href="index.html">Home</a>
+                <a href="index.html#download">Download</a>
+                <a href="https://github.com/dale-tomson/declutter" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-3xl px-lg">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h1 class="mb-md">Windows Defender False Positive Warning</h1>
+
+            <div class="note note-success mb-2xl">
+                <strong>✅ Declutter is completely safe.</strong> This is a false positive detection that commonly
+                affects applications built with Go, especially GUI applications using the Fyne framework.
+            </div>
+
+            <h2 class="mb-md">Why Does This Happen?</h2>
+            <p class="mb-lg">Windows Defender's heuristic detection flags Go applications because:</p>
+            <ul class="mb-2xl">
+                <li><strong>Go Binary Structure</strong> - Go compiles to a unique binary format that differs from
+                    traditional C/C++ applications</li>
+                <li><strong>Unsigned Executable</strong> - The application isn't code-signed with a certificate (costs
+                    $100-400/year)</li>
+                <li><strong>Cross-Compilation</strong> - Building Windows executables on Linux can trigger additional
+                    flags</li>
+                <li><strong>Historical Context</strong> - Some malware has been written in Go, causing overly aggressive
+                    detection</li>
+            </ul>
+
+            <p class="mb-2xl">This is a <strong>well-documented issue</strong> affecting thousands of legitimate Go
+                applications. You can verify the source code is open and safe at <a
+                    href="https://github.com/dale-tomson/declutter" target="_blank"
+                    style="color: var(--primary);">github.com/dale-tomson/declutter</a>.</p>
+
+            <h2 class="mb-md">Solutions</h2>
+
+            <div class="card p-lg mb-lg">
+                <h3 class="mb-sm">Option 1: Add Windows Defender Exclusion (Recommended)</h3>
+                <p class="mb-md">This is the fastest way to use Declutter without warnings:</p>
+                <ol>
+                    <li class="mb-sm"><strong>Open Windows Security</strong>
+                        <ul>
+                            <li>Press <code>Win + I</code> to open Settings</li>
+                            <li>Go to <strong>Privacy & Security</strong> → <strong>Windows Security</strong></li>
+                            <li>Click <strong>Virus & threat protection</strong></li>
+                        </ul>
+                    </li>
+                    <li class="mb-sm"><strong>Add an Exclusion</strong>
+                        <ul>
+                            <li>Under "Virus & threat protection settings", click <strong>Manage settings</strong></li>
+                            <li>Scroll down to <strong>Exclusions</strong></li>
+                            <li>Click <strong>Add or remove exclusions</strong></li>
+                            <li>Click <strong>Add an exclusion</strong> → <strong>File</strong></li>
+                            <li>Browse to and select <code>declutter.exe</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Run Declutter</strong> - The application will no longer be blocked</li>
+                </ol>
+            </div>
+
+            <div class="card p-lg mb-lg">
+                <h3 class="mb-sm">Option 2: Restore from Quarantine</h3>
+                <p class="mb-md">If Windows Defender already quarantined the file:</p>
+                <ol>
+                    <li>Open <strong>Windows Security</strong> → <strong>Virus & threat protection</strong></li>
+                    <li>Click <strong>Protection history</strong></li>
+                    <li>Find the entry for <code>declutter.exe</code></li>
+                    <li>Click on it and select <strong>Actions</strong> → <strong>Allow on device</strong></li>
+                    <li>The file will be restored</li>
+                </ol>
+            </div>
+
+            <div class="card p-lg mb-2xl">
+                <h3 class="mb-sm">Option 3: Submit to Microsoft</h3>
+                <p class="mb-md">Help improve Windows Defender by reporting this false positive:</p>
+                <ol>
+                    <li>Visit <a href="https://www.microsoft.com/en-us/wdsi/filesubmission" target="_blank"
+                            style="color: var(--primary);">Microsoft Security Intelligence Submission Portal</a></li>
+                    <li>Submit <code>declutter.exe</code> for analysis</li>
+                    <li>Microsoft will review and potentially update their definitions</li>
+                </ol>
+                <div class="note note-warning mt-md">
+                    <strong>Note:</strong> This process can take several weeks, and you may need to resubmit for major
+                    version updates.
+                </div>
+            </div>
+
+            <h2 class="mb-md">Verification</h2>
+            <p class="mb-md">You can verify the authenticity of Declutter:</p>
+
+            <h3 class="mb-sm">Check the Source Code</h3>
+            <ul class="mb-lg">
+                <li>All code is open source: <a href="https://github.com/dale-tomson/declutter" target="_blank"
+                        style="color: var(--primary);">github.com/dale-tomson/declutter</a></li>
+                <li>Review the code yourself or have a developer audit it</li>
+            </ul>
+
+            <h3 class="mb-sm">Verify the Download</h3>
+            <ul class="mb-lg">
+                <li>Only download from official sources:
+                    <ul>
+                        <li><a href="https://github.com/dale-tomson/declutter/releases" target="_blank"
+                                style="color: var(--primary);">GitHub Releases</a></li>
+                        <li><a href="index.html" style="color: var(--primary);">Official Website</a></li>
+                    </ul>
+                </li>
+                <li>Check SHA256 checksums (provided in release notes)</li>
+            </ul>
+
+            <h3 class="mb-sm">Scan with Multiple Antivirus Tools</h3>
+            <ul class="mb-2xl">
+                <li>Upload to <a href="https://www.virustotal.com" target="_blank"
+                        style="color: var(--primary);">VirusTotal</a> to see results from 70+ antivirus engines</li>
+                <li>Most will show it as clean; a few may flag it due to Go binary characteristics</li>
+            </ul>
+
+            <h2 class="mb-md">Future Plans</h2>
+            <p class="mb-md">We're working on reducing false positives:</p>
+            <ul class="mb-2xl">
+                <li>✅ <strong>Build Metadata</strong> - Added Windows resource information (version, company,
+                    description) in v1.1.1</li>
+                <li>🔄 <strong>Microsoft Submission</strong> - Submitting releases to Microsoft for analysis</li>
+                <li>📋 <strong>Code Signing</strong> - Considering code signing certificates for future releases
+                    (requires ongoing investment)</li>
+            </ul>
+
+            <h2 class="mb-md">Still Have Concerns?</h2>
+            <p class="mb-md">If you're uncomfortable adding an exclusion:</p>
+            <ul class="mb-2xl">
+                <li><strong>Build from Source</strong> - Follow the <a
+                        href="https://github.com/dale-tomson/declutter#building-from-source" target="_blank"
+                        style="color: var(--primary);">build instructions</a> to compile yourself</li>
+                <li><strong>Use in a VM</strong> - Run Declutter in a virtual machine for isolation</li>
+                <li><strong>Wait for Updates</strong> - As the application gains reputation, false positives may
+                    decrease</li>
+            </ul>
+
+            <div class="note note-info">
+                <strong>Questions?</strong> Open an issue on <a href="https://github.com/dale-tomson/declutter/issues"
+                    target="_blank" style="color: var(--primary); text-decoration: underline;">GitHub</a> if you have
+                questions or concerns about security.
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-xl px-lg">
+        <div class="text-center">
+            <p class="text-muted mb-sm">Made with ❤️ using Go and Fyne</p>
+            <p class="text-muted" style="font-size: 0.875rem;">
+                <a href="index.html" style="color: var(--primary);">Home</a>
+                &nbsp;•&nbsp;
+                <a href="https://github.com/dale-tomson/declutter" style="color: var(--primary);">GitHub</a>
+                &nbsp;•&nbsp;
+                <a href="https://github.com/dale-tomson/declutter/issues" style="color: var(--primary);">Report
+                    Issue</a>
+                &nbsp;•&nbsp;
+                MIT License
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
