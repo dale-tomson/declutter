@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Agent workflow checklist (`.agent/workflows/post-change.md`)
 
 ### Changed
+- Updated `.agent/workflows/post-change.md` to enforce Pull Request submission.
 - Refactored project structure: moved `main.go` to `cmd/declutter/main.go`
 - Replaced shell scripts with `Makefile` (`make build`, `make run`, `make test`)
 - Updated Go version to 1.25 in workflows

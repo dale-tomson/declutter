@@ -35,3 +35,8 @@ Follow this checklist key changes are made to the codebase. This ensures the pro
 
 - [ ] **Build**: Run `make build` to ensure the version string is compiling correctly.
 - [ ] **Test**: Run `make test` to verify stability.
+
+## 5. Submission
+
+- [ ] **Push**: Push the branch to origin.
+- [ ] **PR**: Open a Pull Request against `main`. **DO NOT MERGE MANUALLY.**
