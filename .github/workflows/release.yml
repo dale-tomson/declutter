@@ -56,19 +56,19 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: '1.25'
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux' && matrix.goos == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev xorg-dev libxrandr-dev
+          sudo apt-get install -y libgl1-mesa-dev xorg-dev libxrandr-dev upx
 
       - name: Install Windows cross-compile dependencies
         if: matrix.goos == 'windows'
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-mingw-w64-x86-64
+          sudo apt-get install -y gcc-mingw-w64-x86-64 upx
 
       - name: Update version
         run: |
@@ -109,6 +109,9 @@ jobs:
           CGO_ENABLED: 1
         run: |
           go build -ldflags="-s -w" -o declutter .
+          if [ "${{ matrix.goos }}" == "linux" ]; then
+            upx --best --lzma declutter
+          fi
 
       - name: Build (Windows)
         if: matrix.goos == 'windows'
@@ -119,6 +122,7 @@ jobs:
           CC: x86_64-w64-mingw32-gcc
         run: |
           go build -ldflags="-s -w -H windowsgui" -o declutter.exe .
+          upx --best --lzma declutter.exe
 
 
       - name: Package (Unix)
