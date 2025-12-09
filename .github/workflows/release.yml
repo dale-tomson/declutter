@@ -116,7 +116,7 @@ jobs:
       - name: Build (macOS)
         if: matrix.goos == 'darwin'
         run: |
-          go install fyne.io/fyne/v2/cmd/fyne@latest
+          go install fyne.io/tools/cmd/fyne@latest
           fyne package -os darwin -name Declutter -appID com.github.dale-tomson.declutter -icon internal/icon/logo.svg -release
           # Rename the .app to match the artifact naming convention roughly or just zip it
 

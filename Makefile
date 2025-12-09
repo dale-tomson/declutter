@@ -37,7 +37,7 @@ bump: ## Bump version (Usage: make bump version=patch|minor|major|1.2.3)
 
 deps: ## Install Go dependencies
 	go mod download
-	go install fyne.io/fyne/v2/cmd/fyne@latest
+	go install fyne.io/tools/cmd/fyne@latest
 
 build-linux: ## Build for Linux (amd64)
 	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o $(DIST_DIR)/$(APP_NAME)-linux-amd64 $(CMD_PATH)
