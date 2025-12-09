@@ -92,7 +92,13 @@ Get the latest release for your platform from the [Releases page](https://github
 | macOS    | [declutter-darwin](https://github.com/dale-tomson/declutter/releases/latest) |
 | Linux    | [declutter-linux](https://github.com/dale-tomson/declutter/releases/latest) |
 
-> [!NOTE]
+> [!IMPORTANT]
+> **macOS Users**: When opening the app for the first time, you may see a "Malware" or "Unverified Developer" warning. This is because the app is not notarized by Apple. To open it:
+> 1. Right-click (or Control-click) the **Declutter** app.
+> 2. Select **Open**.
+> 3. Click **Open** in the dialog box.
+> You only need to do this once.
+
 > **Windows Users**: Windows Defender may show a false positive warning. This is a common issue with Go applications and is completely safe. See our [Windows Defender troubleshooting guide](docs/WINDOWS_DEFENDER.md) for solutions.
 
 
@@ -175,7 +181,7 @@ fyne package -os linux -name "Declutter"    # Linux
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of all changes, or browse individual release notes in the [docs/changelogs](docs/changelogs/) folder.
 
-**Latest: v1.1.2+** - Project restructuring to standard Go layout, build optimization (UPX), and contribution guidelines.
+**Latest: v1.1.3** - macOS packaging improvements (.app bundle), documentation updates, and project restructuring.
 
 ## Contributing
 
