@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>macOS Gatekeeper Warning - Declutter</title>
+    <link rel="stylesheet" href="https://unpkg.com/axis-twelve@1.0.1/dist/axis-twelve.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+</head>
+
+<body>
+    <nav class="nav py-md px-lg">
+        <div class="row center-between" style="max-width: 1200px; margin: 0 auto;">
+            <div class="row center-v gap-sm">
+                <img src="assets/logo.svg" alt="Declutter" style="width: 40px; height: 32px;">
+                <span style="font-weight: 600; font-size: 1.25rem;">Declutter</span>
+            </div>
+            <div class="nav-links row gap-lg">
+                <a href="index.html">Home</a>
+                <a href="index.html#download">Download</a>
+                <a href="https://github.com/dale-tomson/declutter" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-3xl px-lg">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h1 class="mb-md">macOS "Not Opened" Warning</h1>
+
+            <div class="note note-success mb-2xl">
+                <strong>✅ Declutter is completely safe.</strong> This warning appears because the application is not
+                notarized by Apple, which requires a paid Apple Developer account.
+            </div>
+
+            <h2 class="mb-md">Why Does This Happen?</h2>
+            <p class="mb-2xl">macOS includes a security feature called <strong>Gatekeeper</strong> that blocks
+                applications from unidentified developers. Since Declutter is a free, open-source project, we currently
+                do not have a paid Apple Developer certificate to sign the application.</p>
+
+            <h2 class="mb-md">Solution: The "Right-Click" Workaround</h2>
+
+            <div class="card p-lg mb-lg">
+                <p class="mb-md">You only need to do this <strong>once</strong> when you first open the application:</p>
+                <ol>
+                    <li class="mb-sm"><strong>Locate the App</strong>: Open Finder and find the <code>Declutter</code>
+                        app.</li>
+                    <li class="mb-sm"><strong>Right-Click</strong>: Right-click (or Control-click) on the
+                        <code>Declutter</code> icon.</li>
+                    <li class="mb-sm"><strong>Select Open</strong>: Choose <strong>Open</strong> from the context menu.
+                    </li>
+                    <li><strong>Confirm</strong>: A dialog box will appear asking if you're sure. Click
+                        <strong>Open</strong>.</li>
+                </ol>
+            </div>
+
+            <div class="note note-info mb-2xl">
+                <strong>Note:</strong> If you try to double-click the app <em>without</em> doing the right-click step
+                first, you will simply see a message saying the app "cannot be opened". You <strong>must</strong> use
+                the right-click menu to see the "Open" option.
+            </div>
+
+            <h2 class="mb-md">Verification</h2>
+            <p class="mb-md">You can verify the authenticity of Declutter:</p>
+
+            <h3 class="mb-sm">Check the Source Code</h3>
+            <ul class="mb-lg">
+                <li>All code is open source: <a href="https://github.com/dale-tomson/declutter" target="_blank"
+                        style="color: var(--primary);">github.com/dale-tomson/declutter</a></li>
+            </ul>
+
+            <h3 class="mb-sm">Verify the Download</h3>
+            <ul class="mb-2xl">
+                <li>Only download from official sources:
+                    <ul>
+                        <li><a href="https://github.com/dale-tomson/declutter/releases" target="_blank"
+                                style="color: var(--primary);">GitHub Releases</a></li>
+                        <li><a href="index.html" style="color: var(--primary);">Official Website</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note note-info">
+                <strong>Questions?</strong> Open an issue on <a href="https://github.com/dale-tomson/declutter/issues"
+                    target="_blank" style="color: var(--primary); text-decoration: underline;">GitHub</a> if you have
+                questions or concerns about security.
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-xl px-lg">
+        <div class="text-center">
+            <p class="text-muted mb-sm">Made with ❤️ using Go and Fyne</p>
+            <p class="text-muted" style="font-size: 0.875rem;">
+                <a href="index.html" style="color: var(--primary);">Home</a>
+                &nbsp;•&nbsp;
+                <a href="https://github.com/dale-tomson/declutter" style="color: var(--primary);">GitHub</a>
+                &nbsp;•&nbsp;
+                <a href="https://github.com/dale-tomson/declutter/issues" style="color: var(--primary);">Report
+                    Issue</a>
+                &nbsp;•&nbsp;
+                MIT License
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

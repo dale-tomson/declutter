@@ -93,12 +93,10 @@ Get the latest release for your platform from the [Releases page](https://github
 | Linux    | [declutter-linux](https://github.com/dale-tomson/declutter/releases/latest) |
 
 > [!IMPORTANT]
-> **macOS Users**: When opening the app for the first time, you may see a "Malware" or "Unverified Developer" warning. This is because the app is not notarized by Apple. To open it:
-> 1. Right-click (or Control-click) the **Declutter** app.
-> 2. Select **Open**.
-> 3. Click **Open** in the dialog box.
-> You only need to do this once.
+> **macOS Users**: When opening the app for the first time, you may see a "Malware" warning. This is because the app is not notarized.
+> See our [Gatekeeper guide](docs/MACOS_GATEKEEPER.md) for a safe, one-time workaround (Right-click -> Open).
 
+> [!NOTE]
 > **Windows Users**: Windows Defender may show a false positive warning. This is a common issue with Go applications and is completely safe. See our [Windows Defender troubleshooting guide](docs/WINDOWS_DEFENDER.md) for solutions.
 
 
