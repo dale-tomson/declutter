@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2025-12-09
+
 ### Added
 - Contribution guidelines (`CONTRIBUTING.md`)
 - Agent workflow checklist (`.agent/workflows/post-change.md`)
@@ -19,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced shell scripts with `Makefile` (`make build`, `make run`, `make test`)
 - Updated Go version to 1.25 in workflows
 - Added UPX compression for Linux and Windows builds in release workflow
+- Use `fyne package` for macOS builds to generate `.app` bundle instead of raw binary.
+
+### Documentation
+- Added specific macOS installation instructions to bypass Gatekeeper warning.
 
 ## [1.1.2] - 2025-12-07
 

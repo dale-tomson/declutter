@@ -101,8 +101,8 @@ jobs:
           cd ../..
           ls -la internal/*.syso || echo "No .syso file found"
 
-      - name: Build (Linux/macOS)
-        if: matrix.goos != 'windows'
+      - name: Build (Linux)
+        if: matrix.goos == 'linux'
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
@@ -112,6 +112,14 @@ jobs:
           if [ "${{ matrix.goos }}" == "linux" ]; then
             upx --best --lzma declutter
           fi
+
+      - name: Build (macOS)
+        if: matrix.goos == 'darwin'
+        run: |
+          go install fyne.io/fyne/v2/cmd/fyne@latest
+          fyne package -os darwin -name Declutter -appID com.github.dale-tomson.declutter -icon internal/icon/logo.svg -release
+          # Rename the .app to match the artifact naming convention roughly or just zip it
+
 
       - name: Build (Windows)
         if: matrix.goos == 'windows'
@@ -125,11 +133,23 @@ jobs:
           upx --best --lzma declutter.exe
 
 
-      - name: Package (Unix)
-        if: matrix.goos != 'windows'
+      - name: Package (Linux)
+        if: matrix.goos == 'linux'
         run: |
           chmod +x declutter
           tar -czvf declutter-${{ inputs.version }}-${{ matrix.name }}.tar.gz declutter
+
+      - name: Package (macOS)
+        if: matrix.goos == 'darwin'
+        run: |
+          # declutter.app is a directory, so we need to zip it or tar it
+          # Ideally create a DMG, but for now a zipped .app is fine and easier
+          # fyne package can create dmg with -os darwin -name Declutter
+          # But let's verify if fyne package output is a .app by default or if we need to release it.
+          # The previous step ran 'fyne package ...' which produces Declutter.app in the current dir.
+          
+          # Let's create a tar.gz of the .app
+          tar -czvf declutter-${{ inputs.version }}-${{ matrix.name }}.tar.gz Declutter.app
 
       - name: Package (Windows)
         if: matrix.goos == 'windows'

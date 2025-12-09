@@ -14,10 +14,45 @@ function detectOS() {
 
 function getAssetOS(name) {
     const lower = name.toLowerCase();
-    if (lower.includes('windows') || lower.includes('.exe') || lower.includes('win')) return 'windows';
+    // Check macOS first to avoid 'win' matching in 'darwin'
     if (lower.includes('darwin') || lower.includes('macos') || lower.includes('mac')) return 'darwin';
+    if (lower.includes('windows') || lower.includes('.exe') || lower.includes('win')) return 'windows';
     if (lower.includes('linux')) return 'linux';
     return null;
+}
+
+function parseMarkdown(text) {
+    if (!text) return '';
+    let html = text;
+
+    // Headers (## Title)
+    html = html.replace(/^## (.*$)/gim, '<h3 class="mt-md mb-sm">$1</h3>');
+    html = html.replace(/^# (.*$)/gim, '<h2 class="mt-lg mb-md">$1</h2>');
+
+    // Bold (**text**)
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // Explicit Markdown links [text](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color: var(--primary);">$1</a>');
+
+    // Auto-link URLs (https://...) that aren't already in an anchor tag
+    // Negative lookbehind is not fully supported in all browsers, so we use a safer approach:
+    // We match URLs that are NOT preceded by =" or ](
+    html = html.replace(/(^|[^"'])(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" style="color: var(--primary);">$2</a>');
+
+    // Bullet points (* item or - item)
+    // We wrap the whole list in <ul> would be hard with regex, so we just style the lines
+    html = html.replace(/^[\*\-] (.*$)/gim, '<div class="row start gap-sm mb-xs"><span style="color: var(--primary); min-width: 10px;">•</span><span>$1</span></div>');
+
+    // Newlines to <br> (if not a header or list item)
+    // Actually, pre-line style in CSS handles newlines, so we might not need this if we keep that style.
+    // However, mixing HTML and pre-line can be tricky.
+    // The previous implementation used style="white-space: pre-line;" on the parent <p>.
+    // Since we are now injecting block elements like <h3> and <div>, we should probably remove pre-line and handle newlines manually or just trust the block elements.
+    // Let's replace double newlines with paragraph breaks?
+    // For simplicity, let's keep it simple.
+
+    return html;
 }
 
 function formatBytes(bytes) {
@@ -94,7 +129,7 @@ async function loadReleases() {
                     </div>
                     <span class="text-muted">${formatDate(latestRelease.published_at)}</span>
                 </div>
-                ${latestRelease.body ? `<p class="text-muted mb-lg" style="white-space: pre-line;">${latestRelease.body}</p>` : ''}
+                ${latestRelease.body ? `<div class="text-muted mb-lg release-notes">${parseMarkdown(latestRelease.body)}</div>` : ''}
                 <div class="column gap-sm">
                     ${assetHTML}
                 </div>
