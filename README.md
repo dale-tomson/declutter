@@ -163,7 +163,7 @@ declutter/
 ## Cross-Compilation
 
 ```bash
-go install fyne.io/fyne/v2/cmd/fyne@latest
+go install fyne.io/tools/cmd/fyne@latest
 
 fyne package -name "Declutter"              # Current platform
 fyne package -os windows -name "Declutter"  # Windows
