@@ -14,10 +14,17 @@ function detectOS() {
 
 function getAssetOS(name) {
     const lower = name.toLowerCase();
-    if (lower.includes('windows') || lower.includes('.exe') || lower.includes('win')) return 'windows';
+    // Check macOS first to avoid 'win' matching in 'darwin'
     if (lower.includes('darwin') || lower.includes('macos') || lower.includes('mac')) return 'darwin';
+    if (lower.includes('windows') || lower.includes('.exe') || lower.includes('win')) return 'windows';
     if (lower.includes('linux')) return 'linux';
     return null;
+}
+
+function parseMarkdown(text) {
+    if (!text) return '';
+    // Replace Markdown links [text](url) with HTML links <a href="url">text</a>
+    return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 }
 
 function formatBytes(bytes) {
@@ -94,7 +101,7 @@ async function loadReleases() {
                     </div>
                     <span class="text-muted">${formatDate(latestRelease.published_at)}</span>
                 </div>
-                ${latestRelease.body ? `<p class="text-muted mb-lg" style="white-space: pre-line;">${latestRelease.body}</p>` : ''}
+                ${latestRelease.body ? `<p class="text-muted mb-lg" style="white-space: pre-line;">${parseMarkdown(latestRelease.body)}</p>` : ''}
                 <div class="column gap-sm">
                     ${assetHTML}
                 </div>
